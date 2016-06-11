@@ -15,21 +15,28 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.util.Collection;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.model.Pets;
+import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-
-import java.util.Collection;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Juergen Hoeller
@@ -108,6 +115,17 @@ public class PetController {
             this.clinicService.savePet(pet);
             return "redirect:/owners/{ownerId}";
         }
+    }
+
+    @RequestMapping("/pets.json")
+    public
+    @ResponseBody
+    Pets showResourcesPetList() {
+        // Here we are returning an object of type 'Pets' rather than a collection of Pet objects
+        // so it is simpler for JSon/Object mapping
+        Pets pets = new Pets();
+        pets.getPetList().add(new Pet());
+        return pets;
     }
 
 }
