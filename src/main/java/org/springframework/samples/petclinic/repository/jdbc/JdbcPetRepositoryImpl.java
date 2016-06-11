@@ -135,7 +135,18 @@ public class JdbcPetRepositoryImpl implements PetRepository {
 
 	@Override
 	public List<Pet> findByOwnerId(int ownerId) throws DataAccessException {
-		throw new UnsupportedOperationException("JdbcPetRepository.findByOwnerId is not supported");
+        Map<String, Object> params = new HashMap<>();
+        params.put("owner_id", ownerId);
+        List<JdbcPet> pets = this.namedParameterJdbcTemplate.query(
+            "SELECT id, name, birth_date, type_id, owner_id FROM pets WHERE owner_id = :owner_id",
+            params,
+            new JdbcPetRowMapper());
+        for (JdbcPet p: pets) {
+            p.setType(EntityUtils.getById(findPetTypes(), PetType.class, p.getTypeId()));
+        }
+        List<Pet> petsRet = new ArrayList<>();
+        petsRet.addAll(pets);
+        return petsRet;
 	}
 
 }
