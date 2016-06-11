@@ -198,6 +198,6 @@ public abstract class AbstractClinicServiceTests {
         Pet[] petArr = pets.toArray(new Pet[pets.size()]);
         assertThat(petArr[0].getType()).isNotNull();
         assertThat(petArr[0].getType().getName()).isEqualTo("cat");
-
+        assertThat(petArr[0].getOwner().getId()).isEqualTo(1);
 	}
 }
