@@ -142,6 +142,8 @@ public class JdbcPetRepositoryImpl implements PetRepository {
             params,
             new JdbcPetRowMapper());
         for (JdbcPet p: pets) {
+            Owner owner = this.ownerRepository.findById(p.getOwnerId());
+            owner.addPet(p);
             p.setType(EntityUtils.getById(findPetTypes(), PetType.class, p.getTypeId()));
         }
         List<Pet> petsRet = new ArrayList<>();
