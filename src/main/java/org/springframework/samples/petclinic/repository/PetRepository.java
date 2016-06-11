@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -49,6 +50,15 @@ public interface PetRepository {
      */
     Pet findById(int id) throws DataAccessException;
 
+    /**
+     * Retrieve all <code>Pet</code>s of a given owner.
+     * 
+     * @param ownerId the id of the owner whose pets are being queried
+     * @return a list of <code>Pet</code>s belonging to the given owner
+     * @throws org.springframework.dao.DataRetrievalFailureException if not found
+     */
+    List<Pet> findByOwnerId(int ownerId) throws DataAccessException;
+    
     /**
      * Save a <code>Pet</code> to the data store, either inserting or updating it.
      *

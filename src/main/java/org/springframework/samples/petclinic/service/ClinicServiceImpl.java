@@ -107,7 +107,7 @@ public class ClinicServiceImpl implements ClinicService {
 
 	@Override
 	public Collection<Pet> findPetsByOwnerId(int ownerId) {
-		return null;
+		return petRepository.findByOwnerId(ownerId);
 	}
 
 
