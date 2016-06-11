@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
 
 import java.util.Collection;
 
@@ -190,5 +191,13 @@ public abstract class AbstractClinicServiceTests {
         assertThat(visit.getId()).isNotNull();
     }
 
+    @Test
+	public void shouldFindPetsByOwnerId() throws Exception {
+        Collection<Pet> pets = this.clinicService.findPetsByOwnerId(1);
+        assertThat(pets.size()).isEqualTo(1);
+        Pet[] petArr = pets.toArray(new Pet[pets.size()]);
+        assertThat(petArr[0].getType()).isNotNull();
+        assertThat(petArr[0].getType().getName()).isEqualTo("cat");
 
+	}
 }

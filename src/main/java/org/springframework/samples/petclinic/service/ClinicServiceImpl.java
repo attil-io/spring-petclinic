@@ -105,5 +105,10 @@ public class ClinicServiceImpl implements ClinicService {
         return vetRepository.findAll();
     }
 
+	@Override
+	public Collection<Pet> findPetsByOwnerId(int ownerId) {
+		return null;
+	}
+
 
 }
