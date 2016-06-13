@@ -105,6 +105,17 @@
             </c:forEach>
         </table>
 
+        <table class="table-buttons">
+            <tr>
+                <td>
+                    <spring:url value="/owners/{ownerId}/pets.json" var="jsonUrl">
+                        <spring:param name="ownerId" value="${owner.id}"/>
+                    </spring:url>
+                    <a href="${fn:escapeXml(jsonUrl)}">View as JSON</a>
+                </td>
+            </tr>
+        </table>
+
         <petclinic:pivotal/>
     </div>
 </div>
