@@ -33,6 +33,8 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Simple JavaBean domain object representing an owner.
  *
@@ -43,6 +45,7 @@ import org.springframework.core.style.ToStringCreator;
  */
 @Entity
 @Table(name = "owners")
+@JsonIgnoreProperties("pets")
 public class Owner extends Person {
     @Column(name = "address")
     @NotEmpty

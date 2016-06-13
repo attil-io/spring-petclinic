@@ -26,6 +26,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Simple JavaBean domain object representing a visit.
  *
@@ -33,6 +35,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name = "visits")
+@JsonIgnoreProperties("pet")
 public class Visit extends BaseEntity {
 
     /**
