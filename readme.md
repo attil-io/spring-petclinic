@@ -1,4 +1,8 @@
-# Spring PetClinic Sample Application [![Build Status](https://travis-ci.org/spring-projects/spring-petclinic.png?branch=master)](https://travis-ci.org/spring-projects/spring-petclinic/)
+# Attilio's experiments with Spring PetClinic Sample Application
+
+## Original project
+Forked from spring-projects/spring-petclinic
+Instructions taken from there.
 
 ## Understanding the Spring Petclinic application with a few diagrams
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
