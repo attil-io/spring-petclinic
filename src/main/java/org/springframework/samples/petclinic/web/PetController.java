@@ -120,11 +120,11 @@ public class PetController {
     @RequestMapping("/pets.json")
     public
     @ResponseBody
-    Pets showResourcesPetList() {
+    Pets showResourcesPetList(@PathVariable("ownerId") int ownerId) {
         // Here we are returning an object of type 'Pets' rather than a collection of Pet objects
         // so it is simpler for JSon/Object mapping
         Pets pets = new Pets();
-        pets.getPetList().add(new Pet());
+        pets.getPetList().addAll(this.clinicService.findPetsByOwnerId(ownerId));
         return pets;
     }
 
