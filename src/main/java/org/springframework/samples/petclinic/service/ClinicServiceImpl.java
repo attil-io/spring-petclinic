@@ -110,5 +110,11 @@ public class ClinicServiceImpl implements ClinicService {
 		return petRepository.findByOwnerId(ownerId);
 	}
 
+	@Override
+	public Collection<Visit> findVisitsByPetId(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
