@@ -111,9 +111,8 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
-	public Collection<Visit> findVisitsByPetId(int i) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Visit> findVisitsByPetId(int petId) {
+		return visitRepository.findByPetId(petId);
 	}
 
 
