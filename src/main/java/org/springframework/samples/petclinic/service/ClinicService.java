@@ -50,6 +50,6 @@ public interface ClinicService {
 
     Collection<Pet> findPetsByOwnerId(int ownerId);
 
-	Collection<Visit> findVisitsByPetId(int i);
+	Collection<Visit> findVisitsByPetId(int petId);
 
 }
