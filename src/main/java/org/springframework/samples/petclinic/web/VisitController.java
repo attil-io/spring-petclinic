@@ -21,7 +21,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.model.Pets;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.model.Visits;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Juergen Hoeller
@@ -95,4 +98,17 @@ public class VisitController {
         return "visitList";
     }
 
+
+    @RequestMapping("/owners/*/pets/{petId}/visits.json")
+    public
+    @ResponseBody
+    Visits showResourcesVisitList(@PathVariable("petId") int petId) {
+/*        // Here we are returning an object of type 'Visits' rather than a collection of Pet objects
+        // so it is simpler for JSon/Object mapping
+        Pets pets = new Pets();
+        pets.getPetList().addAll(this.clinicService.findPetsByOwnerId(ownerId));
+        return pets;
+*/
+        return new Visits();
+    }
 }
