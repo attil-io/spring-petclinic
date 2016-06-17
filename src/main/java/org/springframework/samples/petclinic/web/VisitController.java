@@ -103,12 +103,10 @@ public class VisitController {
     public
     @ResponseBody
     Visits showResourcesVisitList(@PathVariable("petId") int petId) {
-/*        // Here we are returning an object of type 'Visits' rather than a collection of Pet objects
+        // Here we are returning an object of type 'Visits' rather than a collection of Pet objects
         // so it is simpler for JSon/Object mapping
-        Pets pets = new Pets();
-        pets.getPetList().addAll(this.clinicService.findPetsByOwnerId(ownerId));
-        return pets;
-*/
-        return new Visits();
+        Visits visits = new Visits();
+        visits.getVisitList().addAll(this.clinicService.findVisitsByPetId(petId));
+        return visits;
     }
 }
