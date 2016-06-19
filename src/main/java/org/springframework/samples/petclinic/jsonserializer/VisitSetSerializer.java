@@ -19,8 +19,7 @@ public class VisitSetSerializer extends JsonSerializer<Collection<Visit>> {
 	@Override
 	public void serialize(Collection<Visit> visits, JsonGenerator gen, SerializerProvider provider)
 			throws IOException, JsonProcessingException {
-		gen.writeStartObject();
-		gen.writeArrayFieldStart("visits");
+		gen.writeStartArray();
 		for (Visit visit: visits) {
 			gen.writeStartObject();
 			gen.writeNumberField("id", visit.getId());
@@ -29,7 +28,6 @@ public class VisitSetSerializer extends JsonSerializer<Collection<Visit>> {
 			gen.writeEndObject();
 		}
 		gen.writeEndArray();
-		gen.writeEndObject();
 	}
 
 }
