@@ -25,8 +25,11 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.jsonserializer.PetSerializer;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import org.springframework.samples.petclinic.jsonserializer.PetSerializer;
 
 /**
  * Simple JavaBean domain object representing a visit.
@@ -35,7 +38,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Entity
 @Table(name = "visits")
-@JsonIgnoreProperties("pet")
 public class Visit extends BaseEntity {
 
     /**
@@ -58,6 +60,7 @@ public class Visit extends BaseEntity {
      */
     @ManyToOne
     @JoinColumn(name = "pet_id")
+    @JsonSerialize(using = PetSerializer.class)
     private Pet pet;
 
 
