@@ -35,6 +35,7 @@ import org.joda.time.LocalDate;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.jsonserializer.JodaDateSerializer;
 import org.springframework.samples.petclinic.jsonserializer.VisitSetSerializer;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -53,6 +54,7 @@ public class Pet extends NamedEntity {
     @Column(name = "birth_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @JsonSerialize(using = JodaDateSerializer.class)
     private LocalDate birthDate;
 
     @ManyToOne
