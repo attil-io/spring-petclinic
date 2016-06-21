@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -121,5 +122,13 @@ public class PetControllerTests {
         actions.andExpect(content().contentType("application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.petList[0].id").value(1));
         System.err.println(actions.andReturn().getResponse().getContentAsString());
+    }
+    
+    @Test
+    public void testShowResourcesListBirthDateFormat() throws Exception {
+        ResultActions actions = mockMvc.perform(get("/owners/{ownerId}/pets.json", TEST_OWNER_ID).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+        actions.andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(jsonPath("$.petList[0].birthDate").value("07-09-2010"));
     }
 }
