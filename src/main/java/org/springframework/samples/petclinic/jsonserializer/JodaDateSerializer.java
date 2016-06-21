@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 public class JodaDateSerializer extends JsonSerializer<LocalDate> {
 	
 	private static DateTimeFormatter formatter = 
-			DateTimeFormat.forPattern("dd-MM-yyyy");
+			DateTimeFormat.forPattern("yyyy-MM-dd");
 	
 	@Override
 	public void serialize(LocalDate value, JsonGenerator gen, SerializerProvider serializers)

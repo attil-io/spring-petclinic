@@ -87,4 +87,12 @@ public class VisitControllerTests {
             .andExpect(jsonPath("$.visitList[0].id").value(1));
         System.err.println(actions.andReturn().getResponse().getContentAsString());
     }
+
+    @Test
+    public void testShowResourcesVisitListDateFormat() throws Exception {
+        ResultActions actions = mockMvc.perform(get("/owners/*/pets/{petId}/visits.json", 7).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+        actions.andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(jsonPath("$.visitList[0].date").value("2013-01-01"));
+    }
 }

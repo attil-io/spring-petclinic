@@ -25,6 +25,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.jsonserializer.JodaDateSerializer;
 import org.springframework.samples.petclinic.jsonserializer.PetSerializer;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -45,7 +46,7 @@ public class Visit extends BaseEntity {
      */
     @Column(name = "visit_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @JsonSerialize(using = JodaDateSerializer.class)
     private LocalDate date;
 
     /**
