@@ -85,7 +85,6 @@ public class VisitControllerTests {
             .andExpect(status().isOk());
         actions.andExpect(content().contentType("application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.visitList[0].id").value(1));
-        System.err.println(actions.andReturn().getResponse().getContentAsString());
     }
 
     @Test
