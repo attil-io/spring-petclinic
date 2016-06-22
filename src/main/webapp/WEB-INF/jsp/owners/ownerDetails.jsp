@@ -97,6 +97,13 @@
                                     </spring:url>
                                     <a href="${fn:escapeXml(visitUrl)}">Add Visit</a>
                                 </td>
+                                <td>
+                                    <spring:url value="/owners/*/pets/{petId}/visits.json" var="jsonUrl">
+                                        <spring:param name="ownerId" value="${owner.id}"/>
+                                        <spring:param name="petId" value="${pet.id}"/>
+                                    </spring:url>
+                                    <a href="${fn:escapeXml(jsonUrl)}">JSON</a>
+                                </td>
                             </tr>
                         </table>
                     </td>
