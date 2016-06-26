@@ -1,24 +1,32 @@
 package org.springframework.samples.petclinic.web;
 
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 /**
  * Test class for {@link OwnerController}
@@ -33,14 +41,40 @@ public class OwnerControllerTests {
 
     private static final int TEST_OWNER_ID = 1;
 
-    @Autowired
+    @InjectMocks
     private OwnerController ownerController;
+
+    @Mock
+    private ClinicService clinicService;
 
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
+        MockitoAnnotations.initMocks(this);
+
         this.mockMvc = MockMvcBuilders.standaloneSetup(ownerController).build();
+        
+        Owner owner = new Owner();
+        owner.setId(TEST_OWNER_ID);
+        owner.setLastName("Franklin");
+        owner.setFirstName("George");
+        owner.setAddress("110 W. Liberty St.");
+        owner.setCity("Madison");
+        owner.setTelephone("6085551023");
+        
+        when(clinicService.findOwnerById(TEST_OWNER_ID)).thenReturn(owner);
+        
+        Collection<Owner> owners = new ArrayList<>();
+        owners.add(owner);
+
+        Collection<Owner> moreOwners = new ArrayList<>();
+        moreOwners.add(owner);
+        moreOwners.add(owner);
+        
+        when(clinicService.findOwnerByLastName(anyString())).thenReturn(new ArrayList<Owner>());
+        when(clinicService.findOwnerByLastName("")).thenReturn(moreOwners);
+        when(clinicService.findOwnerByLastName("Franklin")).thenReturn(owners);
     }
 
     @Test
