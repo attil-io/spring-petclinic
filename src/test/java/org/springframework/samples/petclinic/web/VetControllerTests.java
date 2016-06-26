@@ -1,13 +1,25 @@
 package org.springframework.samples.petclinic.web;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,15 +36,25 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @WebAppConfiguration
 @ActiveProfiles("spring-data-jpa")
 public class VetControllerTests {
+    private static final int PET_ID = 1;
 
-    @Autowired
+    @InjectMocks
     private VetController vetController;
+
+    @Mock
+    private ClinicService clinicService;
 
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
+        MockitoAnnotations.initMocks(this);
+
         this.mockMvc = MockMvcBuilders.standaloneSetup(vetController).build();
+        
+        Collection<Vet> vets = new ArrayList<>();
+        vets.add(new Vet(){{setId(PET_ID);}});
+        when(clinicService.findVets()).thenReturn(vets);
     }
 
     @Test
@@ -50,7 +72,7 @@ public class VetControllerTests {
         ResultActions actions = mockMvc.perform(get("/vets.json").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
         actions.andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(jsonPath("$.vetList[0].id").value(1));
+            .andExpect(jsonPath("$.vetList[0].id").value(PET_ID));
     }
 
     private void testShowVetList(String url) throws Exception {
