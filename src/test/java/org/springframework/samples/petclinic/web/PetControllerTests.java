@@ -1,6 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -9,12 +9,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 import org.springframework.http.MediaType;
+import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -37,20 +49,48 @@ public class PetControllerTests {
     private static final int TEST_OWNER_ID = 1;
     private static final int TEST_PET_ID = 1;
 
-    @Autowired
+    @InjectMocks
     private PetController petController;
 
     @Autowired
     private FormattingConversionServiceFactoryBean formattingConversionServiceFactoryBean;
 
+    @Mock
+    private ClinicService clinicService;
+    
     private MockMvc mockMvc;
 
     @Before
-    public void setup() {
+    public void setup() throws ParseException {
+        MockitoAnnotations.initMocks(this);
+
         this.mockMvc = MockMvcBuilders
             .standaloneSetup(petController)
             .setConversionService(formattingConversionServiceFactoryBean.getObject())
             .build();
+        Pet mockPet = new Pet();
+        mockPet.setBirthDate(new LocalDate("2010-09-07"));
+        mockPet.setId(1);
+        PetType petType = new PetType();
+        petType.setName("alligator");
+        mockPet.setType(petType);
+        Collection<Pet> mockPets = new ArrayList<>();
+        mockPets.add(mockPet);
+        when(clinicService.findPetsByOwnerId(TEST_OWNER_ID)).thenReturn(mockPets);
+        
+        when(clinicService.findPetById(TEST_PET_ID)).thenReturn(mockPet);
+        
+        Collection<PetType> petTypes = new ArrayList<>();
+        PetType mockPetType = new PetType();
+        mockPetType.setName("hamster");
+        petTypes.add(mockPetType);
+        mockPetType = new PetType();
+        mockPetType.setName("alligator");
+        petTypes.add(mockPetType);
+        when(clinicService.findPetTypes()).thenReturn(petTypes);
+        
+        Owner owner = new Owner();
+        when(clinicService.findOwnerById(TEST_OWNER_ID)).thenReturn(owner);
     }
 
     @Test
