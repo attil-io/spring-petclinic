@@ -24,7 +24,7 @@
     <!--<logger name="org.hibernate" level="debug"/> -->
     <logger name="org.springframework.samples.petclinic" level="debug"/>
 
-    <logger name="org.springframework.samples.petclinic.aspects.ClinicServiceAspect" level="debug">
+    <logger name="org.springframework.samples.petclinic.aspects.ClinicServiceAspect" level="debug" additivity="false">
         <appender-ref ref="audit" />
     </logger>
 
