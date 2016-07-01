@@ -48,4 +48,11 @@ public class JpaVetRepositoryImpl implements VetRepository {
         return this.em.createQuery("SELECT distinct vet FROM Vet vet left join fetch vet.specialties ORDER BY vet.lastName, vet.firstName").getResultList();
     }
 
+
+    @Override
+    public void saveVet(Vet vet) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

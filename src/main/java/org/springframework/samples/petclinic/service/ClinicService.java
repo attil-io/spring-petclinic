@@ -52,4 +52,6 @@ public interface ClinicService {
 
 	Collection<Visit> findVisitsByPetId(int petId);
 
+    void saveVet(Vet vet);
+
 }
