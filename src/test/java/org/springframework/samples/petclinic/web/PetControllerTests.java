@@ -1,5 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -12,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 
 import org.joda.time.LocalDate;
 import org.junit.Before;
@@ -56,6 +59,9 @@ public class PetControllerTests {
     private FormattingConversionServiceFactoryBean formattingConversionServiceFactoryBean;
 
     @Mock
+    private PetTypeFormatter petTypeFormatter;
+
+    @Mock
     private ClinicService clinicService;
     
     private MockMvc mockMvc;
@@ -64,6 +70,8 @@ public class PetControllerTests {
     public void setup() throws ParseException {
         MockitoAnnotations.initMocks(this);
 
+        formattingConversionServiceFactoryBean.getObject().addFormatter(petTypeFormatter);
+        
         this.mockMvc = MockMvcBuilders
             .standaloneSetup(petController)
             .setConversionService(formattingConversionServiceFactoryBean.getObject())
@@ -79,15 +87,10 @@ public class PetControllerTests {
         when(clinicService.findPetsByOwnerId(TEST_OWNER_ID)).thenReturn(mockPets);
         
         when(clinicService.findPetById(TEST_PET_ID)).thenReturn(mockPet);
-        
-        Collection<PetType> petTypes = new ArrayList<>();
+
         PetType mockPetType = new PetType();
         mockPetType.setName("hamster");
-        petTypes.add(mockPetType);
-        mockPetType = new PetType();
-        mockPetType.setName("alligator");
-        petTypes.add(mockPetType);
-        when(clinicService.findPetTypes()).thenReturn(petTypes);
+        when(petTypeFormatter.parse(anyString(), any(Locale.class))).thenReturn(mockPetType);
         
         Owner owner = new Owner();
         when(clinicService.findOwnerById(TEST_OWNER_ID)).thenReturn(owner);
