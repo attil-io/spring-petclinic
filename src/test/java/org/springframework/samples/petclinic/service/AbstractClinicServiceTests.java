@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
 
 import java.util.Collection;
 
@@ -26,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.util.EntityUtils;
@@ -190,5 +192,16 @@ public abstract class AbstractClinicServiceTests {
         assertThat(visit.getId()).isNotNull();
     }
 
-
+    @Test
+    @Transactional
+    public void shouldSaveVet() {
+        Vet vet = new Vet();
+        vet.setFirstName("John");
+        vet.setLastName("Smith");
+        this.clinicService.saveVet(vet);
+        Collection<Vet> vets = this.clinicService.findVets();
+        assertTrue(vets.stream().anyMatch(item -> "John".equals(item.getFirstName())));
+        assertTrue(vets.stream().anyMatch(item -> "Smith".equals(item.getLastName())));
+    }
 }
+

@@ -19,12 +19,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.VetRepository;
@@ -45,11 +51,17 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class JdbcVetRepositoryImpl implements VetRepository {
 
-    private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate jdbcTemplate;
 
+    private SimpleJdbcInsert insertVet;
+    
     @Autowired
-    public JdbcVetRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    public JdbcVetRepositoryImpl(DataSource dataSource,NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        
+        this.insertVet = new SimpleJdbcInsert(dataSource)
+                .withTableName("vets")
+                .usingGeneratedKeyColumns("id");
     }
 
     /**
@@ -70,20 +82,39 @@ public class JdbcVetRepositoryImpl implements VetRepository {
 
         // Build each vet's list of specialties.
         for (Vet vet : vets) {
+            Map<String, Object> params = new HashMap<>();
+            params.put("vet_id", vet.getId());
             final List<Integer> vetSpecialtiesIds = this.jdbcTemplate.query(
-                "SELECT specialty_id FROM vet_specialties WHERE vet_id=?",
+                "SELECT specialty_id FROM vet_specialties WHERE vet_id=:vet_id",
+                params,
                 new BeanPropertyRowMapper<Integer>() {
                     @Override
                     public Integer mapRow(ResultSet rs, int row) throws SQLException {
                         return rs.getInt(1);
                     }
-                },
-                vet.getId());
+                });
             for (int specialtyId : vetSpecialtiesIds) {
                 Specialty specialty = EntityUtils.getById(specialties, Specialty.class, specialtyId);
                 vet.addSpecialty(specialty);
             }
         }
         return vets;
+    }
+
+    @Override
+    public void saveVet(Vet vet) {
+        BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(vet);
+        if (vet.isNew()) {
+            Number newKey = this.insertVet.executeAndReturnKey(parameterSource);
+            vet.setId(newKey.intValue());
+        } else {
+/*
+            this.jdbcTemplate.update(
+                "UPDATE vets SET first_name=:firstName, last_name=:lastName,  " +
+                    " WHERE id=:id",
+                parameterSource);
+*/
+        }
+
     }
 }
