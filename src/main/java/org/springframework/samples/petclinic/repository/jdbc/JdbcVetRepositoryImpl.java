@@ -102,7 +102,7 @@ public class JdbcVetRepositoryImpl implements VetRepository {
     }
 
     @Override
-    public void saveVet(Vet vet) {
+    public void save(Vet vet) {
         BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(vet);
         if (vet.isNew()) {
             Number newKey = this.insertVet.executeAndReturnKey(parameterSource);

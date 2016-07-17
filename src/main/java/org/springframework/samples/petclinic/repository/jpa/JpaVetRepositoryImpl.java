@@ -50,9 +50,12 @@ public class JpaVetRepositoryImpl implements VetRepository {
 
 
     @Override
-    public void saveVet(Vet vet) {
-        // TODO Auto-generated method stub
-        
+    public void save(Vet vet) {
+        if (vet.getId() == null) {
+            this.em.persist(vet);
+        } else {
+            this.em.merge(vet);
+        }
     }
 
 }
