@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.web;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -82,5 +83,14 @@ public class VetControllerTests {
             .andExpect(view().name("vets/vetList"));
     }
 
+    @Test
+    public void testProcessCreationFormSuccess() throws Exception {
+        mockMvc.perform(post("/vets/new")
+            .param("firstName", "Sherlock")
+            .param("lastName", "Holmes")
+            .param("specialities", "[radiology, surgery]")
+        )
+            .andExpect(status().is3xxRedirection());
+    }
 
 }
