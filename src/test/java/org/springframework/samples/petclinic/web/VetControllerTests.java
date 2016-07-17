@@ -93,4 +93,16 @@ public class VetControllerTests {
             .andExpect(status().is3xxRedirection());
     }
 
+    @Test
+    public void testProcessCreationFormFailure() throws Exception {
+        mockMvc.perform(post("/vets/new")
+            .param("firstName", "Sherlock")
+            .param("specialities", "[radiology, surgery]")
+        )
+        .andExpect(status().isOk())
+        .andExpect(model().attributeHasErrors("vet"))
+        .andExpect(model().attributeHasFieldErrors("vet", "lastName"))
+        .andExpect(view().name("vets/createOrUpdateVetForm"));
+    }
+
 }

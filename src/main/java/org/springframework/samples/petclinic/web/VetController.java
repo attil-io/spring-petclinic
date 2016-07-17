@@ -37,7 +37,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class VetController {
-
+    private static final String VIEWS_VET_CREATE_OR_UPDATE_FORM = "vets/createOrUpdateVetForm";
+    
     private final ClinicService clinicService;
 
 
@@ -69,6 +70,11 @@ public class VetController {
 
     @RequestMapping(value = "/vets/new", method = RequestMethod.POST)
     public String processCreationForm(@Valid Vet vet, BindingResult result) {
-        return "redirect:/vets/";
+        if (result.hasErrors()) {
+            return VIEWS_VET_CREATE_OR_UPDATE_FORM;
+        } else {
+            this.clinicService.saveVet(vet);
+            return "redirect:/vets/";
+        }
     }
 }
