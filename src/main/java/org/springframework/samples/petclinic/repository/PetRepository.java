@@ -1,8 +1,10 @@
 package org.springframework.samples.petclinic.repository;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.samples.petclinic.model.Pet;
 
+@NoRepositoryBean
 public interface PetRepository {
 
     /**
