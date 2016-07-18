@@ -84,6 +84,15 @@ public class VetControllerTests {
     }
 
     @Test
+    public void testInitCreationForm() throws Exception {
+        mockMvc.perform(get("/vets/new"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("vet"))
+            .andExpect(view().name("vets/createOrUpdateVetForm"));
+    }
+
+
+    @Test
     public void testProcessCreationFormSuccess() throws Exception {
         mockMvc.perform(post("/vets/new")
             .param("firstName", "Sherlock")
