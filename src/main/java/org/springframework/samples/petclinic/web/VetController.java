@@ -74,7 +74,7 @@ public class VetController {
             return VIEWS_VET_CREATE_OR_UPDATE_FORM;
         } else {
             this.clinicService.saveVet(vet);
-            return "redirect:/vets/";
+            return "redirect:/vets/vetList";
         }
     }
 }
