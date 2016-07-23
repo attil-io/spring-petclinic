@@ -31,6 +31,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.VetRepository;
@@ -116,5 +117,12 @@ public class JdbcVetRepositoryImpl implements VetRepository {
 */
         }
 
+    }
+
+    @Override
+    public List<Specialty> findVetSpecialties() {
+        return this.jdbcTemplate.query(
+            "SELECT id, name FROM specialties ORDER BY name",
+            BeanPropertyRowMapper.newInstance(Specialty.class));
     }
 }

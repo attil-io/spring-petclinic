@@ -223,4 +223,14 @@ public abstract class AbstractClinicServiceTests {
         assertTrue(vets.stream().anyMatch(item -> "John".equals(item.getFirstName())));
         assertTrue(vets.stream().anyMatch(item -> "Smith".equals(item.getLastName())));
     }
+    
+    
+    @Test
+    public void shouldFindVetSpecialities() throws Exception {
+        Collection<Specialty> specialties = this.clinicService.findVetSpecialties();
+        assertThat(specialties.size()).isEqualTo(3);
+        assertTrue(specialties.stream().anyMatch(item -> "dentistry".equals(item.getName())));
+        assertTrue(specialties.stream().anyMatch(item -> "radiology".equals(item.getName())));
+        assertTrue(specialties.stream().anyMatch(item -> "surgery".equals(item.getName())));
+    }
 }
