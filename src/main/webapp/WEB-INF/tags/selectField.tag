@@ -13,11 +13,12 @@
 <spring:bind path="${name}">
     <c:set var="cssGroup" value="form-group ${status.error ? 'error' : '' }"/>
     <c:set var="valid" value="${not status.error and not empty status.actualValue}"/>
+    <c:set var="multiSelect" value="${multiSelect ? multiSelect : false }"/>
     <div class="${cssGroup}">
         <label class="col-sm-2 control-label">${label}</label>
 
         <div class="col-sm-10">
-            <form:select class="form-control" path="${name}" items="${names}" size="${size}"/>
+            <form:select multiple="${multiSelect}" class="form-control" path="${name}" items="${names}" size="${size}"/>
             <c:if test="${valid}">
                 <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
             </c:if>
