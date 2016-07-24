@@ -117,6 +117,7 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
     @Override
+    @Transactional
     public void saveVet(Vet vet) {
         vetRepository.save(vet);
     }

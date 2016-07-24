@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -73,6 +74,13 @@ public class Vet extends Person {
 
     public void addSpecialty(Specialty specialty) {
         getSpecialtiesInternal().add(specialty);
+    }
+    
+    public void setSpecialties(Collection<Specialty> specialties) {
+        this.specialties.clear();
+        for (Specialty spec: specialties) {
+            addSpecialty(spec);
+        }
     }
 
 }
