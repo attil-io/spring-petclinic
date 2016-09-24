@@ -6,6 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html lang="en">
 
@@ -46,6 +47,12 @@
         <petclinic:pivotal/>
     </div>
 </div>
+
+        <form:form id="start-flow-form" action='/petclinic/flows/test/'>
+            <button type="submit">Start test flow</button>
+        </form:form>
+
+
 <jsp:include page="../fragments/footer.jsp"/>
 </body>
 
