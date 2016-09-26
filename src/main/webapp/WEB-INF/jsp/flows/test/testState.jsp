@@ -12,15 +12,18 @@
 <jsp:include page="../../fragments/htmlHeader.jsp"/>
 
 <body>
+<petclinic:bodyHeader menuName="vets"/>
 
                 <div>
                     <p>
                         Test state
                         <button type="submit" name="_eventId_cancel" >Cancel</button>
                     </p>
+                    <petclinic:pivotal/>
                 </div>
 
 
+<jsp:include page="../../fragments/footer.jsp"/>
 
 </body>
 
