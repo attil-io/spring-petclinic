@@ -48,7 +48,7 @@
     </div>
 </div>
 
-        <form:form id="start-flow-form" action='/petclinic/flows/test/'>
+        <form:form id="start-flow-form" action='/petclinic/mytestflow'>
             <button type="submit">Start test flow</button>
         </form:form>
 

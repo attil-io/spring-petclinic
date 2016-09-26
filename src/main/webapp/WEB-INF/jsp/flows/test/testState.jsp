@@ -9,7 +9,7 @@
 
 <html lang="en">
 
-<!-- jsp:include page="../fragments/htmlHeader.jsp"/ -->
+<jsp:include page="../../fragments/htmlHeader.jsp"/>
 
 <body>
 
