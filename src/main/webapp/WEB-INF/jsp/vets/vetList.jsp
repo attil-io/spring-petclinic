@@ -48,7 +48,8 @@
     </div>
 </div>
 
-        <form:form id="start-flow-form" action='/petclinic/mytestflow'>
+        <spring:url value="/mytestflow" var="flowurl" htmlEscape="true"/>
+        <form:form id="start-flow-form" action='${flowurl}'>
             <button type="submit">Start test flow</button>
         </form:form>
 
