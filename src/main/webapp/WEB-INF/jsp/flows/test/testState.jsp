@@ -17,7 +17,10 @@
                 <div>
                     <p>
                         Test state
-                        <button type="submit" name="_eventId_cancel" >Cancel</button>
+                        <form:form>
+                            <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
+                            <button type="submit" name="_eventId_cancel" >Cancel</button>
+                        </form:form>
                     </p>
                     <petclinic:pivotal/>
                 </div>

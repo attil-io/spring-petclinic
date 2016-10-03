@@ -11,6 +11,6 @@
 		<transition on="cancel" to="cancel" bind="false" />
 	</view-state>
 	
-	<end-state id="cancel" />
+	<end-state id="cancel" view="externalRedirect:contextRelative:/vets.html" />
 
 </flow>
