@@ -5,12 +5,13 @@
         http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-
-	
 	<view-state id="testState">
-		<transition on="cancel" to="cancel" bind="false" />
 	</view-state>
 	
 	<end-state id="cancel" view="externalRedirect:contextRelative:/vets.html" />
+
+	<global-transitions>
+		<transition on="cancel" to="cancel" />
+	</global-transitions>
 
 </flow>
