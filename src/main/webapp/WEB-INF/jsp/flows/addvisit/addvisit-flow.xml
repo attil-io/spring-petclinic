@@ -8,8 +8,7 @@
 	<var name="addVisitBean" class="org.springframework.samples.petclinic.flow.addvisit.AddVisit"/>
 
 	<on-start>
-		<set name="requestScope.vetId" value="requestParameters.vetId"/>
-		<evaluate expression="addVisitBean.setVetId(requestScope.vetId)" ></evaluate>
+		<evaluate expression="addVisitActions.setVetById(addVisitBean, requestParameters.vetId)" ></evaluate>
 	</on-start>
 
 

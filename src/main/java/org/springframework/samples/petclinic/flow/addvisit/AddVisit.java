@@ -2,16 +2,16 @@ package org.springframework.samples.petclinic.flow.addvisit;
 
 import java.io.Serializable;
 
+import org.springframework.samples.petclinic.model.Vet;
+
 public class AddVisit implements Serializable {
-    private int vetId;
+    private Vet vet;
 
-    public int getVetId() {
-        return vetId;
-    }
-
-    public void setVetId(int vetId) {
-        this.vetId = vetId;
+    public void setVet(Vet vet) {
+        this.vet = vet;
     }
     
-    
+    public Vet getVet() {
+        return vet;
+    }
 }

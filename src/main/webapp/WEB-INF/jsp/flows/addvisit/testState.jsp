@@ -14,7 +14,7 @@
 <body>
 <petclinic:bodyHeader menuName="vets"/>
 
-Add visit for vet with id: ${addVisitBean.vetId}
+Add visit for vet with id: ${addVisitBean.vet.id}
 
                 <div>
                     <p>
