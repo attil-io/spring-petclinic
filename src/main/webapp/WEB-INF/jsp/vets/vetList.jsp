@@ -29,6 +29,12 @@
                 </c:forEach>
                 <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
             </datatables:column>
+            <datatables:column>
+                <spring:url value="/addvisitflow?vetId=${vet.id}" var="flowurl" htmlEscape="true"/>
+                <form:form id="start-flow-form" action='${flowurl}'>
+                    <button type="submit">Start test flow</button>
+                </form:form>
+            </datatables:column>
         </datatables:table>
 
         <table class="table-buttons">
@@ -47,12 +53,6 @@
         <petclinic:pivotal/>
     </div>
 </div>
-
-        <spring:url value="/addvisitflow" var="flowurl" htmlEscape="true"/>
-        <form:form id="start-flow-form" action='${flowurl}'>
-            <button type="submit">Start test flow</button>
-        </form:form>
-
 
 <jsp:include page="../fragments/footer.jsp"/>
 </body>
