@@ -14,6 +14,8 @@
 <body>
 <petclinic:bodyHeader menuName="vets"/>
 
+Add visit for vet with id: ${addVisitBean.vetId}
+
                 <div>
                     <p>
                         Test state

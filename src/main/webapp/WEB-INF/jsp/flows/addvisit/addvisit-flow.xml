@@ -5,6 +5,14 @@
         http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+	<var name="addVisitBean" class="org.springframework.samples.petclinic.flow.addvisit.AddVisit"/>
+
+	<on-start>
+		<set name="requestScope.vetId" value="requestParameters.vetId"/>
+		<evaluate expression="addVisitBean.setVetId(requestScope.vetId)" ></evaluate>
+	</on-start>
+
+
 	<view-state id="testState">
 	</view-state>
 	
