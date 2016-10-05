@@ -18,13 +18,20 @@
 
         <h2>Something happened...</h2>
 
+        Message:
         <p>${exception.message}</p>
 
-        <!-- Exception: ${exception.message}.
-		  	<c:forEach items="${exception.stackTrace}" var="stackTrace"> 
-				${stackTrace} 
-			</c:forEach>
-	  	-->
+<br /><br /><br />
+        Exception type: ${exception.getClass().getName()} <br />
+        Exception cause: ${exception.getCause().getClass().getName()}
+        Exception cause: ${exception.getCause().getMessage()}
+<br /><br /><br />
+
+        Stack trace:
+	  	<c:forEach items="${exception.stackTrace}" var="stackTrace"> 
+			${stackTrace} 
+		</c:forEach>
+
         <petclinic:pivotal/>
     </div>
 </div>
