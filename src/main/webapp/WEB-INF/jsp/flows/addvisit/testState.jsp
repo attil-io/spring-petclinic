@@ -14,13 +14,15 @@
 <body>
 <petclinic:bodyHeader menuName="vets"/>
 
-Add visit for vet with id: ${addVisitBean.vet.id}
+<div>
+Add visit for: <b>${addVisitBean.vet.firstName} ${addVisitBean.vet.lastName}</b>
+</div>
 
                 <div>
                     <p>
-                        Test state
                         <form:form>
                             <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
+                            <button type="submit" name="_eventId_continue" >Continue</button>
                             <button type="submit" name="_eventId_cancel" >Cancel</button>
                         </form:form>
                     </p>
