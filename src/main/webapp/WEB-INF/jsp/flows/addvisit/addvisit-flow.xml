@@ -13,9 +13,23 @@
 
 
 	<view-state id="showDoctorState">
+		<transition on="continue" to="choosePetState"/>
 	</view-state>
 	
+	<view-state id="choosePetState">
+		<transition on="continue" to="chooseDateState"/>
+	</view-state>
+
+	<view-state id="chooseDateState">
+		<transition on="continue" to="confirmState"/>
+	</view-state>
+
+	<view-state id="confirmState">
+		<transition on="continue" to="finish"/>
+	</view-state>
+
 	<end-state id="cancel" view="externalRedirect:contextRelative:/vets.html" />
+	<end-state id="finish" view="externalRedirect:contextRelative:/vets.html" />
 
 	<global-transitions>
 		<transition on="cancel" to="cancel" />
