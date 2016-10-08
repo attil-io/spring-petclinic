@@ -57,4 +57,6 @@ public interface ClinicService {
 
     Collection<Specialty> findVetSpecialties();
 
+    Vet findVetById(int id);
+
 }

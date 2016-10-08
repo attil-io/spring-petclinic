@@ -233,4 +233,11 @@ public abstract class AbstractClinicServiceTests {
         assertTrue(specialties.stream().anyMatch(item -> "radiology".equals(item.getName())));
         assertTrue(specialties.stream().anyMatch(item -> "surgery".equals(item.getName())));
     }
+    
+    @Test
+    public void shouldFindVetById() throws Exception {
+        Vet vet = this.clinicService.findVetById(2);
+        assertEquals("Helen", vet.getFirstName());
+        assertEquals("Leary", vet.getLastName());
+    }
 }

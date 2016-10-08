@@ -43,6 +43,8 @@ public interface VetRepository {
     void save(Vet vet);
 
     List<Specialty> findVetSpecialties() throws DataAccessException;
+    
+    Vet findById(int id);
 
 
 }

@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.VetRepository;
@@ -64,6 +65,12 @@ public class JpaVetRepositoryImpl implements VetRepository {
     @Override
     public List<Specialty> findVetSpecialties() {
         return this.em.createQuery("SELECT spec FROM Specialty spec ORDER BY spec.name").getResultList();
+    }
+
+
+    @Override
+    public Vet findById(int id) {
+        return this.em.find(Vet.class, id);
     }
 
 }

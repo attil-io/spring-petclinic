@@ -130,5 +130,10 @@ public class ClinicServiceImpl implements ClinicService {
         return vetRepository.findVetSpecialties();
     }
 
+    @Override
+    public Vet findVetById(int id) {
+        return vetRepository.findById(id);
+    }
+
 
 }

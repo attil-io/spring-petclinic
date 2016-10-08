@@ -27,10 +27,13 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
@@ -124,5 +127,22 @@ public class JdbcVetRepositoryImpl implements VetRepository {
         return this.jdbcTemplate.query(
             "SELECT id, name FROM specialties ORDER BY name",
             BeanPropertyRowMapper.newInstance(Specialty.class));
+    }
+
+    @Override
+    public Vet findById(int id) {
+        Vet vet;
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", id);
+            vet = this.jdbcTemplate.queryForObject(
+                "SELECT id, first_name, last_name FROM vets WHERE id= :id",
+                params,
+                BeanPropertyRowMapper.newInstance(Vet.class)
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            throw new ObjectRetrievalFailureException(Owner.class, id);
+        }
+        return vet;
     }
 }
