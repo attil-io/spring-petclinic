@@ -17,9 +17,18 @@
 	</view-state>
 
 	<view-state id="chooseOwnerState">
-		<transition on="continue" to="choosePetState"/>
+		<transition on="continue" to="lookupOwner"/>
 	</view-state>
-	
+
+	<action-state id="lookupOwner">
+		<evaluate result="addVisitBean.owner" result-type="org.springframework.samples.petclinic.model.Owner"
+			expression="addVisitActions.lookupOwner(requestParameters.lastName, requestParameters.lastName)" />
+
+		<transition to="chooseOwnerState"
+			on-exception="org.springframework.samples.petclinic.flow.addvisit.OwnerNotFoundException" />
+		<transition to="choosePetState" />
+	</action-state>
+
 	<view-state id="choosePetState">
 		<transition on="continue" to="chooseDateState"/>
 	</view-state>
