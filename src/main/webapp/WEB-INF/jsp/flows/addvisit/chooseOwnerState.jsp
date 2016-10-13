@@ -16,6 +16,9 @@
 
 <div>
 Please, choose the owner of the pet to be visited.
+<c:set var="errorMessage" value="${(empty errorMessage) ? 'No error' : errorMessage}" />
+<c:out value="${errorMessage}"/>
+
 </div>
 
                 <div>
