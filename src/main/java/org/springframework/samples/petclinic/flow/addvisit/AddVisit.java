@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.flow.addvisit;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
@@ -12,6 +13,7 @@ public class AddVisit implements Serializable {
     private Owner owner;
     private Collection<Pet> pets;
     private Pet chosenPet;
+    private Date visitDate;
     
     public void setVet(Vet vet) {
         this.vet = vet;
@@ -43,5 +45,13 @@ public class AddVisit implements Serializable {
 
     public void setChosenPet(Pet chosenPet) {
         this.chosenPet = chosenPet;
+    }
+
+    public Date getVisitDate() {
+        return visitDate;
+    }
+
+    public void setVisitDate(Date visitDate) {
+        this.visitDate = visitDate;
     }
 }

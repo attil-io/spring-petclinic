@@ -29,12 +29,10 @@ $(document).ready(function() {
 });
 </script>
 
-<p>Date: <input type="text" id="datepicker"></p>
-
-
                 <div>
                     <p>
                         <form:form>
+                            <p>Date: <input type="text" id="datepicker" name="visitDate"></p>
                             <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
                             <button type="submit" name="_eventId_continue" >Continue</button>
                             <button type="submit" name="_eventId_cancel" >Cancel</button>

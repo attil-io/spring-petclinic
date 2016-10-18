@@ -43,8 +43,14 @@
 	</view-state>
 
 	<view-state id="chooseDateState">
-		<transition on="continue" to="confirmState"/>
+		<transition on="continue" to="saveDateState"/>
 	</view-state>
+
+	<action-state id="saveDateState">
+		<evaluate result="addVisitBean.visitDate" result-type="java.util.Date"
+			expression="addVisitActions.convertToDate(requestParameters.visitDate)" />
+		<transition to="confirmState" />
+	</action-state>
 
 	<view-state id="confirmState">
 		<transition on="continue" to="finish"/>
