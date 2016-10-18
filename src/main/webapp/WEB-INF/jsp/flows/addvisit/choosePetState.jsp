@@ -15,8 +15,12 @@
 <petclinic:bodyHeader menuName="vets"/>
 
 <div>
-Please, choose the pet to be visited.
+Please, choose the pet of: <b>${addVisitBean.owner.firstName} ${addVisitBean.owner.lastName}</b> to be visited.
 </div>
+
+                <form:select path="addVisitBean.chosenPet">
+                    <form:options items="${addVisitBean.pets}" itemLabel="name" itemValue="id" />
+                </form:select>
 
                 <div>
                     <p>

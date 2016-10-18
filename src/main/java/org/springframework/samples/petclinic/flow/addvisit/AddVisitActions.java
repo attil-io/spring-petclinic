@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Component;
@@ -32,5 +33,9 @@ public class AddVisitActions {
             throw new OwnerNotFoundException();
         }
         return owners.stream().findFirst().get();
+    }
+    
+    public Collection<Pet> findPetsForOwner(Owner owner) {
+        return cs.findPetsByOwnerId(owner.getId());
     }
 }

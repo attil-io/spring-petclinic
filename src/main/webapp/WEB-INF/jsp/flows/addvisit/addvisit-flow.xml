@@ -29,6 +29,12 @@
 			<set name="conversationScope.lastName" value="requestParameters.lastName"/>
 			<set name="conversationScope.errorMessage" value="'Owner does not exist.'"/>
 		</transition>
+		<transition to="fetchPetsList" />
+	</action-state>
+
+	<action-state id="fetchPetsList">
+		<evaluate result="addVisitBean.pets" result-type="java.util.Collection"
+			expression="addVisitActions.findPetsForOwner(addVisitBean.owner)" />
 		<transition to="choosePetState" />
 	</action-state>
 
