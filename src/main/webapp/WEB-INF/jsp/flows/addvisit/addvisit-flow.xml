@@ -26,6 +26,7 @@
 
 		<transition to="chooseOwnerState"
 			on-exception="org.springframework.samples.petclinic.flow.addvisit.OwnerNotFoundException">
+			<set name="conversationScope.lastName" value="requestParameters.lastName"/>
 			<set name="conversationScope.errorMessage" value="'Owner does not exist.'"/>
 		</transition>
 		<transition to="choosePetState" />

@@ -24,7 +24,7 @@ Please, choose the owner of the pet to be visited.
                 <div>
                     <p>
                         <form:form>
-                            <p>Last name: <input type="text" class="form-control" name="lastName"/></p>
+                            <p>Last name: <input type="text" class="form-control" name="lastName" value="${lastName}"/></p>
                             <p>First name: <input type="text" class="form-control" name="firstName"/></p>
                             <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
                             <button type="submit" name="_eventId_continue" >Continue</button>
