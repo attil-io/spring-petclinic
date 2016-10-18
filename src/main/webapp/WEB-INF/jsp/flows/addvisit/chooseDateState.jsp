@@ -10,6 +10,10 @@
 <html lang="en">
 
 <jsp:include page="../../fragments/htmlHeader.jsp"/>
+<spring:url value="/vendors/jquery/jquery.min.js" var="jQuery"/>
+<spring:url value="/vendors/jquery-ui/ui/minified/jquery.ui.datepicker.min.js" var="jQueryDatePicker"/>
+<script src="${jQuery}"></script>
+<script src="${jQueryDatePicker}"></script>
 
 <body>
 <petclinic:bodyHeader menuName="vets"/>
@@ -17,6 +21,16 @@
 <div>
 Please, choose a date for the visit.
 </div>
+
+
+<script>
+$(document).ready(function() {
+    $("#datepicker").datepicker({dateFormat:"yy-mm-dd"});
+});
+</script>
+
+<p>Date: <input type="text" id="datepicker"></p>
+
 
                 <div>
                     <p>
