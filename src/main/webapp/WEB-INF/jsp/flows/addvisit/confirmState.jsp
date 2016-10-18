@@ -18,6 +18,11 @@
 Please, confirm the visit.
 </div>
 
+<div>Veterinarian: ${addVisitBean.vet.firstName} ${addVisitBean.vet.lastName}</div>
+<div>Owner: ${addVisitBean.owner.firstName} ${addVisitBean.owner.lastName}</div>
+<div>Pet: ${addVisitBean.chosenPet.name} </div>
+<div>Visit date: ${addVisitBean.visitDate}</div>
+
                 <div>
                     <p>
                         <form:form>
