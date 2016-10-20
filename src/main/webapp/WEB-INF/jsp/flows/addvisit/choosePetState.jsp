@@ -18,13 +18,12 @@
 Please, choose the pet of: <b>${addVisitBean.owner.firstName} ${addVisitBean.owner.lastName}</b> to be visited.
 </div>
 
-                <form:select path="addVisitBean.chosenPet" size="${addVisitBean.pets.size() + 1}">
-                    <form:options items="${addVisitBean.pets}" itemLabel="name" itemValue="id" />
-                </form:select>
-
                 <div>
                     <p>
-                        <form:form>
+                        <form:form modelAttribute="addVisitBean">
+                            <form:select path="chosenPet" size="${addVisitBean.pets.size() + 1}">
+                               <form:options items="${addVisitBean.pets}" itemLabel="name" />
+                            </form:select>
                             <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
                             <button type="submit" name="_eventId_continue" >Continue</button>
                             <button type="submit" name="_eventId_cancel" >Cancel</button>
