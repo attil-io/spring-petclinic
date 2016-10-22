@@ -46,4 +46,8 @@ public class AddVisitActions {
         SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
         return parser.parse(dateStr);
     }
+    
+    public Pet fetchPetById(int petId) {
+        return cs.findPetById(petId);
+    }
 }

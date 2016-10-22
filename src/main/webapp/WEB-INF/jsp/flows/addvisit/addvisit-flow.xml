@@ -39,8 +39,14 @@
 	</action-state>
 
 	<view-state id="choosePetState">
-		<transition on="continue" to="chooseDateState"/>
+		<transition on="continue" to="savePetState"/>
 	</view-state>
+
+	<action-state id="savePetState">
+		<evaluate result="addVisitBean.chosenPet" result-type="org.springframework.samples.petclinic.model.Pet"
+			expression="addVisitActions.fetchPetById(requestParameters.chosenPet)" />
+		<transition to="chooseDateState" />
+	</action-state>
 
 	<view-state id="chooseDateState">
 		<transition on="continue" to="saveDateState"/>
