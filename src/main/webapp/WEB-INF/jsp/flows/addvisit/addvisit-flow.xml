@@ -59,8 +59,13 @@
 	</action-state>
 
 	<view-state id="confirmState">
-		<transition on="continue" to="finish"/>
+		<transition on="continue" to="saveVisitState"/>
 	</view-state>
+
+	<action-state id="saveVisitState">
+		<evaluate expression="addVisitActions.saveVisit(addVisitBean)" />
+		<transition to="finish" />
+	</action-state>
 
 	<end-state id="cancel" view="externalRedirect:contextRelative:/vets.html" />
 	<end-state id="finish" view="externalRedirect:contextRelative:/vets.html" />

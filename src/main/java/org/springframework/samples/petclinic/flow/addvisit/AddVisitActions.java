@@ -5,12 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class AddVisitActions {
@@ -49,5 +52,17 @@ public class AddVisitActions {
     
     public Pet fetchPetById(int petId) {
         return cs.findPetById(petId);
+    }
+    
+    @Transactional
+    public void saveVisit(AddVisit addVisit) {
+        Visit visit = new Visit();
+        Pet pet = addVisit.getChosenPet();
+        pet.addVisit(visit);
+        LocalDate ld = new LocalDate(addVisit.getVisitDate());
+        visit.setDate(ld);
+        visit.setDescription("added by visit flow");
+        cs.saveVisit(visit);
+        cs.savePet(pet);
     }
 }
