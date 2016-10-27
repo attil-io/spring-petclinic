@@ -7,22 +7,14 @@
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		">
 
+	<bean id="userDAO" class="org.springframework.samples.petclinic.security.UserDaoImpl"></bean>
+
     <sec:http auto-config='true'>
         <sec:intercept-url pattern="/**" access="ROLE_MEMBER" />
     </sec:http>
 
     <sec:authentication-manager>
-        <sec:authentication-provider user-service-ref="userService" />
+        <sec:authentication-provider user-service-ref="userDAO" />
     </sec:authentication-manager>
-
-    <sec:user-service id="userService">
-        <sec:user name="habuma" password="letmein"
-            authorities="ROLE_MEMBER,ROLE_ADMIN" />
-        <sec:user name="twoqubed" password="longhorns"
-            authorities="ROLE_MEMEBER" />
-        <sec:user name="admin" password="admin"
-            authorities="ROLE_ADMIN" />
-    </sec:user-service>
-
 
 </beans>
